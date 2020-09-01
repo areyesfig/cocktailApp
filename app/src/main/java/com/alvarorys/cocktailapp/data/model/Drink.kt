@@ -9,6 +9,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Drink(
+    @SerializedName("idDrink")
+    val tragoId: String = "",
     @SerializedName("strDrinkThumb")//marca el nombre que esta en la base de datos
     val imagen: String = "",
 

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alvarorys.cocktailapp.AppDatabase
 import com.alvarorys.cocktailapp.R
 import com.alvarorys.cocktailapp.data.DataSource
 import com.alvarorys.cocktailapp.data.model.Drink
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(),MainAdaptar.OnTragoClickListener {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
+    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(AppDatabase.getDatabase(requireActivity().applicationContext)))) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,9 @@ class MainFragment : Fragment(),MainAdaptar.OnTragoClickListener {
         setupRecyclerView()
         setupSearchView()
         setupObservers()
+        btn_ir_favoritos.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_favoritosFragment)
+        }
 
     }
     //cuando se quiere buscar por parametro al repo para que muestre segun query
